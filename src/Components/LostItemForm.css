@@ -1,0 +1,132 @@
+/* LOST ITEM FORM STYLES */
+.lost-item-form-wrapper {
+  background: #eaeaea;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 24px;
+  max-width: 900px;
+  margin: 32px auto;
+  border: 3px solid #4a2db4;
+  position: relative;
+}
+.back-btn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #4a2db4;
+  cursor: pointer;
+}
+.form-title {
+  text-align: center;
+  background: #4a2db4;
+  color: #fff;
+  border-radius: 16px;
+  padding: 8px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.section-title {
+  text-align: center;
+  font-weight: 700;
+  background: #000;
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 0;
+  margin-bottom: 12px;
+}
+.section-title.owner {
+  background: #4a2db4;
+  margin-top: 24px;
+}
+.lost-item-form input,
+.lost-item-form textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  font-size: 1rem;
+  background: #fff;
+}
+.lost-item-form textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+.row {
+  display: flex;
+  gap: 12px;
+}
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #aaa;
+  border-radius: 12px;
+  padding: 18px;
+  background: #fff;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+.upload-box span {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #555;
+}
+.upload-icon {
+  font-size: 2rem;
+  color: #4a2db4;
+  margin-bottom: 8px;
+}
+.checkbox-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0;
+}
+.submit-btn {
+  width: 100%;
+  background: #176c3a;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 8px;
+}
+@media (max-width: 600px) {
+  .lost-item-form-wrapper {
+    max-width: 98vw;
+    padding: 12px;
+    border-radius: 12px;
+  }
+  .form-title {
+    font-size: 1rem;
+    padding: 6px 0;
+  }
+  .section-title, .section-title.owner {
+    font-size: 0.95rem;
+    padding: 4px 0;
+  }
+  .lost-item-form input,
+  .lost-item-form textarea {
+    font-size: 0.95rem;
+    padding: 8px;
+  }
+  .upload-box {
+    padding: 12px;
+  }
+  .upload-icon {
+    font-size: 1.5rem;
+  }
+  .submit-btn {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
