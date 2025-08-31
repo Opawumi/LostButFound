@@ -1,8 +1,8 @@
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import ActionCard from './components/ActionCard';
-import RecentItems from './components/RecentItems';
-import LostItemForm from './components/LostItemForm';
+import Header from './Components/Header';
+import SearchBar from './Components/SearchBar';
+import ActionCard from './Components/ActionCard';
+import RecentItems from './Components/RecentItems';
+import LostItemForm from './Components/LostItemForm';
 import lost from './assets/images/lost.png';
 import found from './assets/images/found.png';
 import { Routes, Route } from 'react-router-dom';
