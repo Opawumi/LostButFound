@@ -1,8 +1,8 @@
-import Header from './Components/Header';
-import SearchBar from './Components/SearchBar';
-import ActionCard from './Components/ActionCard';
-import RecentItems from './Components/RecentItems';
-import LostItemForm from './Components/LostItemForm';
+import Header from './components/Header';
+import SearchBar from './components/SearchBar';
+import ActionCard from './components/ActionCard';
+import RecentItems from './components/RecentItems';
+import LostItemForm from './components/LostItemForm';
 import lost from './assets/images/lost.png';
 import found from './assets/images/found.png';
 import { Routes, Route } from 'react-router-dom';
@@ -38,7 +38,15 @@ function App() {
               <RecentItems />
             </>
           } />
-          <Route path="/report-lost" element={<LostItemForm />} />
+          <Route 
+            path="/report-lost" 
+            element={
+              <>
+                {console.log('Rendering LostItemForm')}
+                <LostItemForm onBack={() => window.history.back()} />
+              </>
+            } 
+          />
         </Routes>
       </div>
     </div>

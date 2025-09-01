@@ -9,16 +9,14 @@
   border: 3px solid #4a2db4;
   position: relative;
 }
-.formbtn {
-  display: flex;
-  justify-content: space-between;
-}
+
 .back-btn {
   
   top: 24px;
   left: 24px;
   background: none;
   border: none;
+  border-radius: 2px;
   font-size: 1.5rem;
   color: #4a2db4;
   cursor: pointer;
@@ -45,23 +43,28 @@
   margin: 0 0 32px 0;
   padding-bottom: 16px;
   border-bottom: 2px solid #f0f0f0;
-  width: 100%;
+  width: 80%;
+  justify-self: center;
 }
 
 /* Section Titles */
 .section-title {
-  color: #2c3e50;
-  font-size: 1.3rem;
+  background: #000000 !important;
+  color: #f9f9f9;
+  font-size: 1.6rem;
   font-weight: 600;
-  margin: 32px 0 20px 0;
+  /* margin: 32px 0 20px 0; */
   position: relative;
   padding-left: 12px;
-  text-align: left;
+  text-align: center;
   background: none;
-  border-radius: 0;
+  border-radius: 18px;
+  width: 30%;
+  align-self: center;
+  align-content: center;
 }
 
-.section-title:after {
+/* .section-title:after {
   content: '';
   position: absolute;
   left: 0;
@@ -70,11 +73,9 @@
   width: 4px;
   background: #4a2db4;
   border-radius: 2px;
-}
+} */
 
-.section-title.owner {
-  margin-top: 40px;
-}
+
 
 /* Form Elements */
 .lost-item-form {
@@ -225,6 +226,20 @@
   margin-top: 8px;
 }
 
+.owner-info-section{
+  background-color: #3a1ea0;
+  border-radius: 40px;
+  padding: 15px;
+}
+
+.section-title.owner {
+  margin-top: 40px;
+  margin-bottom: 5px;
+  background: none !important;
+  text-align: left;
+  margin-top: 13px;
+
+}
 /* Checkbox Styles */
 .checkbox-group {
   display: flex;
@@ -291,26 +306,28 @@
 }
 
 .checkbox-label {
-  margin-left: 8px;
-  color: #4b5563;
-  font-size: 0.9rem;
+  color: #000000;
+  font-size: 15px; 
+  font-weight: 500;
 }
 
 /* Submit Button */
 .submit-btn {
-  width: 100%;
-  background: #4a2db4;
+  width: 15%;
+  background: #154F1D;
   color: #fff;
   font-weight: 600;
   border: none;
   border-radius: 8px;
-  padding: 16px;
+  padding: 10px;
   font-size: 1rem;
   cursor: pointer;
-  margin-top: 16px;
+  margin-top: 5px;
+  margin-bottom: 15px;
   transition: all 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  align-self: center;
 }
 
 .submit-btn:hover {
@@ -369,8 +386,9 @@
   }
   
   .form-title {
-    font-size: 1.3rem;
+    font-size: 1.0rem;
     margin-bottom: 20px;
+    width: 90%;
   }
   
   .lost-item-form input,
@@ -392,4 +410,22 @@
     padding: 14px;
     font-size: 0.9rem;
   }
+
+  .section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  width: 80%;
+}
+
+.checkbox-label{
+  color: #000000;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.submit-btn {
+  width: 33%;
+  padding: 8px;
+  font-size: 0.9rem;
+}
 }

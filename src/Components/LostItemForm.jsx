@@ -94,15 +94,18 @@ const LostItemForm = ({ onBack }) => {
 
   return (
     <div className="lost-item-form-wrapper">
+      
       <button className="back-btn" onClick={onBack} aria-label="Go back">
         <FaArrowLeft />
       </button>
       
-      <h2 className="form-title">LOST ITEM REPORT FOR</h2>
+      <h2 className="form-title">LOST ITEM REPORT FORM</h2>
+
+      <hr style={{width: '97%', maxWidth: 1020, borderColor: '#000000', margin: '24px auto'}} />
       
       <form className="lost-item-form" onSubmit={handleSubmit}>
         {/* Item Information Section */}
-        <div className="section-title">Item Information</div>
+        <div className="section-title">Item Informations</div>
         
         <div className="form-group">
           <div className="input-with-icon">
@@ -153,7 +156,7 @@ const LostItemForm = ({ onBack }) => {
               type="text" 
               name="lastLocation" 
               value={form.lastLocation}
-              placeholder="Last known location" 
+              placeholder="A brief description of the missing location...." 
               onChange={handleChange}
               required 
             />
@@ -201,71 +204,74 @@ const LostItemForm = ({ onBack }) => {
           </label>
         </div>
         
+        <hr style={{width: '97%', maxWidth: 1020, borderColor: '#000000', margin: '24px auto'}} />
         {/* Owner Information Section */}
-        <div className="section-title owner">Owner Information</div>
-        
-        <div className="form-group">
-          <div className="input-with-icon">
-            <FaUser className="input-icon" />
-            <input 
-              type="text" 
-              name="fullName" 
-              value={form.fullName}
-              placeholder="Full name" 
-              onChange={handleChange}
-              required 
-            />
-          </div>
-        </div>
-        
-        <div className="row">
+        <div className='owner-info-section'>
+          <div className="section-title owner">Enter your details</div>
+          
           <div className="form-group">
             <div className="input-with-icon">
-              <FaIdCard className="input-icon" />
+              <FaUser className="input-icon" />
               <input 
                 type="text" 
-                name="matricNumber" 
-                value={form.matricNumber}
-                placeholder="Matric Number" 
+                name="fullName"
+                style={{ borderRadius: '18px' }}
+                value={form.fullName}
+                placeholder="Full name" 
                 onChange={handleChange}
                 required 
               />
             </div>
           </div>
           
+          <div className="row">
+            <div className="form-group">
+              <div className="input-with-icon">
+                <FaIdCard className="input-icon" />
+                <input 
+                  type="text" 
+                  name="matricNumber" 
+                  value={form.matricNumber}
+                  placeholder="Matric Number" 
+                  onChange={handleChange}
+                  required 
+                />
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <div className="input-with-icon">
+                <FaPhone className="input-icon" />
+                <input 
+                  type="tel" 
+                  name="phoneNumber" 
+                  value={form.phoneNumber}
+                  placeholder="Phone Number" 
+                  onChange={handleChange}
+                  required 
+                />
+              </div>
+            </div>
+          </div>
+          
           <div className="form-group">
             <div className="input-with-icon">
-              <FaPhone className="input-icon" />
+              <FaEnvelope className="input-icon" />
               <input 
-                type="tel" 
-                name="phoneNumber" 
-                value={form.phoneNumber}
-                placeholder="Phone Number" 
+                type="email" 
+                name="email" 
+                value={form.email}
+                placeholder="Email Address" 
                 onChange={handleChange}
                 required 
               />
             </div>
           </div>
         </div>
-        
-        <div className="form-group">
-          <div className="input-with-icon">
-            <FaEnvelope className="input-icon" />
-            <input 
-              type="email" 
-              name="email" 
-              value={form.email}
-              placeholder="Email Address" 
-              onChange={handleChange}
-              required 
-            />
-          </div>
-        </div>
-        
         <div className="checkbox-group">
           <label className="checkbox-container">
             <input 
-              type="checkbox" 
+              type="checkbox"
               name="shareInfo" 
               checked={form.shareInfo}
               onChange={handleChange}
@@ -282,12 +288,12 @@ const LostItemForm = ({ onBack }) => {
               onChange={handleChange}
             />
             <span className="checkmark"></span>
-            <span className="checkbox-label">Admin can contact me for verification</span>
+            <span className="checkbox-label" >Admin can contact me for verification</span>
           </label>
         </div>
         
         <button type="submit" className="submit-btn">
-          SUBMIT LOST ITEM REPORT
+          SUBMIT
         </button>
       </form>
     </div>
