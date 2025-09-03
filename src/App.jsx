@@ -1,8 +1,9 @@
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import ActionCard from './components/ActionCard';
-import RecentItems from './components/RecentItems';
-import LostItemForm from './components/LostItemForm';
+import Header from './Components/Header';
+import SearchBar from './Components/SearchBar';
+import ActionCard from './Components/ActionCard';
+import RecentItems from './Components/RecentItems';
+import LostItemForm from './Components/LostItemForm';
+import FoundItemForm from './Components/FoundItemForm';
 import lost from './assets/images/lost.png';
 import found from './assets/images/found.png';
 import { Routes, Route } from 'react-router-dom';
@@ -34,6 +35,7 @@ function App() {
                 buttonText="Report it here"
                 imgWidth={750}
                 imgHeight={370}
+                link="/report-found"
               />
               <RecentItems />
             </>
@@ -44,6 +46,15 @@ function App() {
               <>
                 {console.log('Rendering LostItemForm')}
                 <LostItemForm onBack={() => window.history.back()} />
+              </>
+            } 
+          />
+          <Route 
+            path="/report-found" 
+            element={
+              <>
+                {console.log('Rendering FoundItemForm')}
+                <FoundItemForm onBack={() => window.history.back()} />
               </>
             } 
           />

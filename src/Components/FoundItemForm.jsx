@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { FaArrowLeft, FaImage, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaUser, FaIdCard, FaPhone, FaEnvelope } from 'react-icons/fa';
-import './LostItemForm.css';
+import './FoundItemForm.css';
 
-const LostItemForm = ({ onBack }) => {
+const FoundItemForm = ({ onBack }) => {
   const [form, setForm] = useState({
     itemName: '',
-    dateLost: '',
-    timeLost: '',
-    lastLocation: '',
+    dateFound: '',
+    timeFound: '',
+    foundLocation: '',
     itemDescription: '',
     fullName: '',
     matricNumber: '',
@@ -72,14 +72,14 @@ const LostItemForm = ({ onBack }) => {
     }
 
     // Here you would typically send formData to your backend
-    console.log('Form submitted:', Object.fromEntries(formData.entries()));
+    console.log('Found item form submitted:', Object.fromEntries(formData.entries()));
     
     // Reset form after submission
     setForm({
       itemName: '',
-      dateLost: '',
-      timeLost: '',
-      lastLocation: '',
+      dateFound: '',
+      timeFound: '',
+      foundLocation: '',
       itemDescription: '',
       fullName: '',
       matricNumber: '',
@@ -93,14 +93,16 @@ const LostItemForm = ({ onBack }) => {
   };
 
   return (
-    <div className="lost-item-form-wrapper">
+    <div className="found-item-form-wrapper">
       <button className="back-btn" onClick={onBack} aria-label="Go back">
         <FaArrowLeft />
       </button>
       
-      <h2 className="form-title">LOST ITEM REPORT FORM </h2>
+      <h2 className="form-title">FOUND ITEM REPORT FORM</h2>
+
+      <hr style={{width: '97%', maxWidth: 1020, borderColor: '#000000', margin: '24px auto'}} />
       
-      <form className="lost-item-form" onSubmit={handleSubmit}>
+      <form className="found-item-form" onSubmit={handleSubmit}>
         {/* Item Information Section */}
         <div className="section-title">Item Information</div>
         
@@ -124,8 +126,8 @@ const LostItemForm = ({ onBack }) => {
               <FaCalendarAlt className="input-icon" />
               <input 
                 type="date" 
-                name="dateLost" 
-                value={form.dateLost}
+                name="dateFound" 
+                value={form.dateFound}
                 onChange={handleChange}
                 required 
               />
@@ -137,8 +139,8 @@ const LostItemForm = ({ onBack }) => {
               <FaClock className="input-icon" />
               <input 
                 type="time" 
-                name="timeLost" 
-                value={form.timeLost}
+                name="timeFound" 
+                value={form.timeFound}
                 onChange={handleChange}
                 required 
               />
@@ -151,9 +153,9 @@ const LostItemForm = ({ onBack }) => {
             <FaMapMarkerAlt className="input-icon" />
             <input 
               type="text" 
-              name="lastLocation" 
-              value={form.lastLocation}
-              placeholder="Last known location" 
+              name="foundLocation" 
+              value={form.foundLocation}
+              placeholder="Where was the item found?" 
               onChange={handleChange}
               required 
             />
@@ -164,7 +166,7 @@ const LostItemForm = ({ onBack }) => {
           <textarea 
             name="itemDescription" 
             value={form.itemDescription}
-            placeholder="Detailed description of the item (color, brand, distinguishing features, etc.)..." 
+            placeholder="Detailed description of the item (color, brand, distinguishing features, condition, etc.)..." 
             onChange={handleChange}
             rows="4"
             required
@@ -196,12 +198,12 @@ const LostItemForm = ({ onBack }) => {
               type="file" 
               accept="image/*" 
               onChange={handleImageChange}
-              className="file-input"
+              style={{ display: 'none' }} 
             />
           </label>
         </div>
         
-        {/* Owner Information Section */}
+        {/* Finder's Information Section */}
         <div className='owner-info-section'>
           <div className="section-title-owner">Enter your details</div>
           
@@ -264,18 +266,17 @@ const LostItemForm = ({ onBack }) => {
             </div>
           </div>
         </div>
-                
         
         <div className="checkbox-group">
           <label className="checkbox-container">
             <input 
-              type="checkbox" 
+              type="checkbox"
               name="shareInfo" 
               checked={form.shareInfo}
               onChange={handleChange}
             />
             <span className="checkmark"></span>
-            <span className="checkbox-label">I agree to share this information for recovery purposes</span>
+            <span className="checkbox-label">I agree to share this information for recovery purpose</span>
           </label>
           
           <label className="checkbox-container">
@@ -286,7 +287,7 @@ const LostItemForm = ({ onBack }) => {
               onChange={handleChange}
             />
             <span className="checkmark"></span>
-            <span className="checkbox-label">Admin can contact me for verification</span>
+            <span className="checkbox-label" >Admin can contact me for verification</span>
           </label>
         </div>
         
@@ -298,4 +299,4 @@ const LostItemForm = ({ onBack }) => {
   );
 };
 
-export default LostItemForm;
+export default FoundItemForm;
