@@ -218,10 +218,58 @@ const deleteItem = async (req, res) => {
   }
 };
 
+// @desc    Search items by name or description
+// @route   GET /api/items/search
+// @access  Public
+const searchItems = async (req, res) => {
+  try {
+    const { q, status = 'found' } = req.query;
+    
+    if (!q || q.trim() === '') {
+      return res.status(400).json({
+        success: false,
+        message: 'Search query is required'
+      });
+    }
+
+    // Create search query using regex for case-insensitive search
+    const searchRegex = new RegExp(q.trim(), 'i');
+    
+    const query = {
+      status: status,
+      $or: [
+        { itemName: searchRegex },
+        { itemDescription: searchRegex },
+        { foundLocation: searchRegex },
+        { lastLocation: searchRegex }
+      ]
+    };
+
+    const items = await Item.find(query)
+      .sort({ dateReported: -1 })
+      .limit(20);
+
+    res.json({
+      success: true,
+      count: items.length,
+      data: items,
+      query: q
+    });
+  } catch (error) {
+    console.error('Search items error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error searching items',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   createItem,
   getItems,
   getItemById,
   updateItemStatus,
-  deleteItem
+  deleteItem,
+  searchItems
 };

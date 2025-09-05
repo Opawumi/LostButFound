@@ -76,7 +76,7 @@ const itemSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['found', 'claimed', 'archived'],
+    enum: ['found', 'lost', 'claimed', 'archived'],
     default: 'found'
   },
   dateReported: {

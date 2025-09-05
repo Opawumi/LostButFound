@@ -10,10 +10,23 @@ const authRoutes = require('./routes/auth');
 
 const app = express();
 
+// CORS Configuration
+const corsOptions = {
+  origin: 'http://localhost:3000', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/lostAndFound', {

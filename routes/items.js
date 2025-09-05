@@ -5,12 +5,14 @@ const {
   getItems, 
   getItemById, 
   updateItemStatus, 
-  deleteItem 
+  deleteItem,
+  searchItems
 } = require('../controllers/itemController');
 const { auth, admin } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
 // Public routes
+router.get('/search', searchItems);
 router.get('/', getItems);
 router.get('/:id', getItemById);
 router.post('/', upload.single('image'), createItem);
