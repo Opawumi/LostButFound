@@ -1,8 +1,11 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { reportFoundItem } from '../services/api';
 import { FaArrowLeft, FaImage, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaUser, FaIdCard, FaPhone, FaEnvelope } from 'react-icons/fa';
 import './FoundItemForm.css';
 
 const FoundItemForm = ({ onBack }) => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     itemName: '',
     dateFound: '',
@@ -19,6 +22,9 @@ const FoundItemForm = ({ onBack }) => {
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ success: null, message: '' });
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -57,43 +63,103 @@ const FoundItemForm = ({ onBack }) => {
     handleImageChange(e);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
     
-    // Append all form fields
-    Object.entries(form).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    
-    // Append the image file if it exists
-    if (image) {
-      formData.append('image', image);
+    // Basic form validation
+    if (!form.itemName || !form.dateFound || !form.timeFound || !form.foundLocation || 
+        !form.itemDescription || !form.fullName || !form.phoneNumber || !form.email) {
+      setSubmitStatus({ success: false, message: 'Please fill in all required fields' });
+      return;
     }
 
-    // Here you would typically send formData to your backend
-    console.log('Found item form submitted:', Object.fromEntries(formData.entries()));
-    
-    // Reset form after submission
-    setForm({
-      itemName: '',
-      dateFound: '',
-      timeFound: '',
-      foundLocation: '',
-      itemDescription: '',
-      fullName: '',
-      matricNumber: '',
-      phoneNumber: '',
-      email: '',
-      shareInfo: false,
-      adminContact: false
-    });
-    setImage(null);
-    setImagePreview(null);
+    setIsSubmitting(true);
+    setSubmitStatus({ success: null, message: '' });
+
+    try {
+      const formData = new FormData();
+      
+      // Append all form fields with proper field names for found items
+      Object.entries({
+        ...form,
+        // Map form fields to match backend expectations
+        dateFound: form.dateFound,
+        timeFound: form.timeFound,
+        foundLocation: form.foundLocation,
+        itemName: form.itemName,
+        itemDescription: form.itemDescription,
+        fullName: form.fullName,
+        matricNumber: form.matricNumber,
+        phoneNumber: form.phoneNumber,
+        email: form.email,
+        shareInfo: form.shareInfo,
+        adminContact: form.adminContact,
+        status: 'found'  // Explicitly set status to 'found'
+      }).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          formData.append(key, value);
+        }
+      });
+      
+      // Append the image file if it exists
+      if (image) {
+        formData.append('image', image);
+      }
+
+      // Send to backend
+      const response = await reportFoundItem(formData);
+      
+      // Show popup message
+      setShowPopup(true);
+      
+      // Reset form after successful submission
+      setForm({
+        itemName: '',
+        dateFound: '',
+        timeFound: '',
+        foundLocation: '',
+        itemDescription: '',
+        fullName: '',
+        matricNumber: '',
+        phoneNumber: '',
+        email: '',
+        shareInfo: false,
+        adminContact: false
+      });
+      setImage(null);
+      setImagePreview(null);
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus({ 
+        success: false, 
+        message: error.message || 'Failed to submit form. Please try again.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    navigate('/'); // Navigate back to homepage
   };
 
   return (
     <div className="found-item-form-wrapper">
+      {/* Popup Message */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-message">
+            <h3>Submission Successful!</h3>
+            <p>Thank you, Admin will update you if necessary.</p>
+            <button className="popup-close-btn" onClick={handlePopupClose}>
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
       <button className="back-btn" onClick={onBack} aria-label="Go back">
         <FaArrowLeft />
       </button>
@@ -291,9 +357,19 @@ const FoundItemForm = ({ onBack }) => {
           </label>
         </div>
         
-        <button type="submit" className="submit-btn">
-          SUBMIT
+        <button 
+          type="submit" 
+          className="submit-btn"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit Report'}
         </button>
+        
+        {submitStatus.message && (
+          <div className={`submit-message ${submitStatus.success ? 'success' : 'error'}`}>
+            {submitStatus.message}
+          </div>
+        )}
       </form>
     </div>
   );
